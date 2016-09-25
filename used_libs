@@ -1,3 +1,5 @@
+libEGL.so.1
+libGLESv2.so.2
 libX11-xcb.so.1
 libX11.so.6
 libXcursor.so.1
@@ -21,7 +23,9 @@ libva-drm.so.1
 libva.so.1
 libwayland-client.so.0
 libwayland-cursor.so.0
+libwayland-egl.so.1
 libwayland-server.so.0
+libwebp.so.6
 libxcb-composite.so.0
 libxcb-render.so.0
 libxcb-shm.so.0

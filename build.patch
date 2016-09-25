@@ -1,0 +1,10 @@
+--- weston-1.12.0/libweston/compositor-x11.c~	2016-09-17 07:06:45.000000000 +0000
++++ weston-1.12.0/libweston/compositor-x11.c	2016-09-25 00:18:42.578535010 +0000
+@@ -59,6 +59,7 @@
+ #include "pixman-renderer.h"
+ #include "presentation-time-server-protocol.h"
+ #include "linux-dmabuf.h"
++#include "weston-egl-ext.h"
+ 
+ #define DEFAULT_AXIS_STEP_DISTANCE 10
+ 

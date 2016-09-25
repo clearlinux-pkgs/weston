@@ -1,4 +1,2 @@
 --disable-documentation
---disable-simple-egl-clients
---disable-egl
 --disable-setuid-install
