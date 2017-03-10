@@ -11,6 +11,7 @@ libdrm.so.2
 libgbm.so.1
 libinput.so.10
 libjpeg.so.62
+liblcms2.so.2
 libm.so.6
 libpam.so.0
 libpixman-1.so.0

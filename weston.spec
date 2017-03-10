@@ -6,7 +6,7 @@
 #
 Name     : weston
 Version  : 1.12.0
-Release  : 3
+Release  : 4
 URL      : https://wayland.freedesktop.org/releases/weston-1.12.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-1.12.0.tar.xz
 Source99 : https://wayland.freedesktop.org/releases/weston-1.12.0.tar.xz.sig
@@ -19,6 +19,7 @@ Requires: weston-doc
 Requires: weston-data
 BuildRequires : Linux-PAM-dev
 BuildRequires : doxygen
+BuildRequires : lcms2-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(cairo)
 BuildRequires : pkgconfig(cairo-xcb)
@@ -121,7 +122,7 @@ lib components for the weston package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1489155668
+export SOURCE_DATE_EPOCH=1489155916
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -138,7 +139,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1489155668
+export SOURCE_DATE_EPOCH=1489155916
 rm -rf %{buildroot}
 %make_install
 
@@ -230,6 +231,7 @@ rm -rf %{buildroot}
 /usr/lib64/libweston-1/xwayland.so
 /usr/lib64/libweston-desktop-1.so.0
 /usr/lib64/libweston-desktop-1.so.0.12.0
+/usr/lib64/weston/cms-static.so
 /usr/lib64/weston/desktop-shell.so
 /usr/lib64/weston/fullscreen-shell.so
 /usr/lib64/weston/hmi-controller.so
