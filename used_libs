@@ -13,9 +13,11 @@ libinput.so.10
 libjpeg.so.62
 liblcms2.so.2
 libm.so.6
+libmtdev.so.1
 libpam.so.0
 libpixman-1.so.0
 libpng16.so.16
+libpthread.so.0
 libsystemd.so.0
 libudev.so.1
 libunwind.so.8
