@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x11A30156E0E67611 (bryce@ubuntu.com)
 #
 Name     : weston
-Version  : 2.0.0
-Release  : 7
-URL      : https://wayland.freedesktop.org/releases/weston-2.0.0.tar.xz
-Source0  : https://wayland.freedesktop.org/releases/weston-2.0.0.tar.xz
-Source99 : https://wayland.freedesktop.org/releases/weston-2.0.0.tar.xz.sig
-Summary  : Header files for libweston compositors development
+Version  : 3.0.0
+Release  : 8
+URL      : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
+Source0  : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
+Source99 : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz.sig
+Summary  : Header files for Weston plugin development
 Group    : Development/Tools
 License  : MIT
 Requires: weston-bin
@@ -29,13 +29,13 @@ BuildRequires : pkgconfig(gbm)
 BuildRequires : pkgconfig(glesv2)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libdrm)
-BuildRequires : pkgconfig(libdrm_intel)
 BuildRequires : pkgconfig(libinput)
 BuildRequires : pkgconfig(libpng)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libudev)
 BuildRequires : pkgconfig(libunwind)
 BuildRequires : pkgconfig(libva)
+BuildRequires : pkgconfig(libva-drm)
 BuildRequires : pkgconfig(libwebp)
 BuildRequires : pkgconfig(libxml-2.0)
 BuildRequires : pkgconfig(mtdev)
@@ -118,11 +118,14 @@ lib components for the weston package.
 
 
 %prep
-%setup -q -n weston-2.0.0
+%setup -q -n weston-3.0.0
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1489247841
+export SOURCE_DATE_EPOCH=1502223444
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -135,11 +138,11 @@ make V=1  %{?_smp_mflags}
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1489247841
+export SOURCE_DATE_EPOCH=1502223444
 rm -rf %{buildroot}
 %make_install
 
@@ -189,28 +192,28 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/libweston-2/compositor-drm.h
-/usr/include/libweston-2/compositor-fbdev.h
-/usr/include/libweston-2/compositor-headless.h
-/usr/include/libweston-2/compositor-rdp.h
-/usr/include/libweston-2/compositor-wayland.h
-/usr/include/libweston-2/compositor-x11.h
-/usr/include/libweston-2/compositor.h
-/usr/include/libweston-2/config-parser.h
-/usr/include/libweston-2/libweston-desktop.h
-/usr/include/libweston-2/matrix.h
-/usr/include/libweston-2/plugin-registry.h
-/usr/include/libweston-2/timeline-object.h
-/usr/include/libweston-2/version.h
-/usr/include/libweston-2/windowed-output-api.h
-/usr/include/libweston-2/xwayland-api.h
-/usr/include/libweston-2/zalloc.h
+/usr/include/libweston-3/compositor-drm.h
+/usr/include/libweston-3/compositor-fbdev.h
+/usr/include/libweston-3/compositor-headless.h
+/usr/include/libweston-3/compositor-rdp.h
+/usr/include/libweston-3/compositor-wayland.h
+/usr/include/libweston-3/compositor-x11.h
+/usr/include/libweston-3/compositor.h
+/usr/include/libweston-3/config-parser.h
+/usr/include/libweston-3/libweston-desktop.h
+/usr/include/libweston-3/matrix.h
+/usr/include/libweston-3/plugin-registry.h
+/usr/include/libweston-3/timeline-object.h
+/usr/include/libweston-3/version.h
+/usr/include/libweston-3/windowed-output-api.h
+/usr/include/libweston-3/xwayland-api.h
+/usr/include/libweston-3/zalloc.h
 /usr/include/weston/ivi-layout-export.h
 /usr/include/weston/weston.h
-/usr/lib64/libweston-2.so
-/usr/lib64/libweston-desktop-2.so
-/usr/lib64/pkgconfig/libweston-2.pc
-/usr/lib64/pkgconfig/libweston-desktop-2.pc
+/usr/lib64/libweston-3.so
+/usr/lib64/libweston-desktop-3.so
+/usr/lib64/pkgconfig/libweston-3.pc
+/usr/lib64/pkgconfig/libweston-desktop-3.pc
 /usr/lib64/pkgconfig/weston.pc
 
 %files doc
@@ -221,17 +224,17 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libweston-2.so.0
-/usr/lib64/libweston-2.so.0.0.0
-/usr/lib64/libweston-2/drm-backend.so
-/usr/lib64/libweston-2/fbdev-backend.so
-/usr/lib64/libweston-2/gl-renderer.so
-/usr/lib64/libweston-2/headless-backend.so
-/usr/lib64/libweston-2/wayland-backend.so
-/usr/lib64/libweston-2/x11-backend.so
-/usr/lib64/libweston-2/xwayland.so
-/usr/lib64/libweston-desktop-2.so.0
-/usr/lib64/libweston-desktop-2.so.0.0.0
+/usr/lib64/libweston-3.so.0
+/usr/lib64/libweston-3.so.0.0.0
+/usr/lib64/libweston-3/drm-backend.so
+/usr/lib64/libweston-3/fbdev-backend.so
+/usr/lib64/libweston-3/gl-renderer.so
+/usr/lib64/libweston-3/headless-backend.so
+/usr/lib64/libweston-3/wayland-backend.so
+/usr/lib64/libweston-3/x11-backend.so
+/usr/lib64/libweston-3/xwayland.so
+/usr/lib64/libweston-desktop-3.so.0
+/usr/lib64/libweston-desktop-3.so.0.0.0
 /usr/lib64/weston/cms-static.so
 /usr/lib64/weston/desktop-shell.so
 /usr/lib64/weston/fullscreen-shell.so
