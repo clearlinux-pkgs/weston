@@ -6,7 +6,7 @@
 #
 Name     : weston
 Version  : 3.0.0
-Release  : 10
+Release  : 11
 URL      : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
 Source99 : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz.sig
@@ -125,14 +125,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1502223444
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export SOURCE_DATE_EPOCH=1517336618
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static --disable-documentation \
---disable-setuid-install
-make V=1  %{?_smp_mflags}
+--disable-setuid-install \
+--enable-demo-clients-install
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
@@ -142,7 +143,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1502223444
+export SOURCE_DATE_EPOCH=1517336618
 rm -rf %{buildroot}
 %make_install
 
@@ -153,9 +154,33 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/bin/wcap-decode
 /usr/bin/weston
+/usr/bin/weston-calibrator
+/usr/bin/weston-clickdot
+/usr/bin/weston-cliptest
+/usr/bin/weston-confine
+/usr/bin/weston-dnd
+/usr/bin/weston-editor
+/usr/bin/weston-eventdemo
+/usr/bin/weston-flower
+/usr/bin/weston-fullscreen
+/usr/bin/weston-image
 /usr/bin/weston-info
 /usr/bin/weston-launch
+/usr/bin/weston-multi-resource
+/usr/bin/weston-presentation-shm
+/usr/bin/weston-resizor
+/usr/bin/weston-scaler
+/usr/bin/weston-simple-damage
+/usr/bin/weston-simple-dmabuf-drm
+/usr/bin/weston-simple-dmabuf-v4l
+/usr/bin/weston-simple-egl
+/usr/bin/weston-simple-shm
+/usr/bin/weston-simple-touch
+/usr/bin/weston-smoke
+/usr/bin/weston-stacking
+/usr/bin/weston-subsurfaces
 /usr/bin/weston-terminal
+/usr/bin/weston-transformed
 /usr/libexec/weston-desktop-shell
 /usr/libexec/weston-ivi-shell-user-interface
 /usr/libexec/weston-keyboard

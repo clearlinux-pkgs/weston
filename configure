@@ -1,2 +1,3 @@
 --disable-documentation
 --disable-setuid-install
+--enable-demo-clients-install
