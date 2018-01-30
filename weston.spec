@@ -6,7 +6,7 @@
 #
 Name     : weston
 Version  : 3.0.0
-Release  : 11
+Release  : 12
 URL      : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz
 Source99 : https://wayland.freedesktop.org/releases/weston-3.0.0.tar.xz.sig
@@ -108,6 +108,14 @@ Group: Documentation
 doc components for the weston package.
 
 
+%package extras
+Summary: extras components for the weston package.
+Group: Default
+
+%description extras
+extras components for the weston package.
+
+
 %package lib
 Summary: lib components for the weston package.
 Group: Libraries
@@ -125,7 +133,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1517336618
+export SOURCE_DATE_EPOCH=1517337825
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -143,7 +151,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1517336618
+export SOURCE_DATE_EPOCH=1517337825
 rm -rf %{buildroot}
 %make_install
 
@@ -152,35 +160,35 @@ rm -rf %{buildroot}
 
 %files bin
 %defattr(-,root,root,-)
+%exclude /usr/bin/weston-calibrator
+%exclude /usr/bin/weston-clickdot
+%exclude /usr/bin/weston-cliptest
+%exclude /usr/bin/weston-confine
+%exclude /usr/bin/weston-dnd
+%exclude /usr/bin/weston-editor
+%exclude /usr/bin/weston-eventdemo
+%exclude /usr/bin/weston-flower
+%exclude /usr/bin/weston-fullscreen
+%exclude /usr/bin/weston-image
+%exclude /usr/bin/weston-multi-resource
+%exclude /usr/bin/weston-presentation-shm
+%exclude /usr/bin/weston-resizor
+%exclude /usr/bin/weston-scaler
+%exclude /usr/bin/weston-simple-damage
+%exclude /usr/bin/weston-simple-dmabuf-drm
+%exclude /usr/bin/weston-simple-dmabuf-v4l
+%exclude /usr/bin/weston-simple-egl
+%exclude /usr/bin/weston-simple-shm
+%exclude /usr/bin/weston-simple-touch
+%exclude /usr/bin/weston-smoke
+%exclude /usr/bin/weston-stacking
+%exclude /usr/bin/weston-subsurfaces
+%exclude /usr/bin/weston-transformed
 /usr/bin/wcap-decode
 /usr/bin/weston
-/usr/bin/weston-calibrator
-/usr/bin/weston-clickdot
-/usr/bin/weston-cliptest
-/usr/bin/weston-confine
-/usr/bin/weston-dnd
-/usr/bin/weston-editor
-/usr/bin/weston-eventdemo
-/usr/bin/weston-flower
-/usr/bin/weston-fullscreen
-/usr/bin/weston-image
 /usr/bin/weston-info
 /usr/bin/weston-launch
-/usr/bin/weston-multi-resource
-/usr/bin/weston-presentation-shm
-/usr/bin/weston-resizor
-/usr/bin/weston-scaler
-/usr/bin/weston-simple-damage
-/usr/bin/weston-simple-dmabuf-drm
-/usr/bin/weston-simple-dmabuf-v4l
-/usr/bin/weston-simple-egl
-/usr/bin/weston-simple-shm
-/usr/bin/weston-simple-touch
-/usr/bin/weston-smoke
-/usr/bin/weston-stacking
-/usr/bin/weston-subsurfaces
 /usr/bin/weston-terminal
-/usr/bin/weston-transformed
 /usr/libexec/weston-desktop-shell
 /usr/libexec/weston-ivi-shell-user-interface
 /usr/libexec/weston-keyboard
@@ -246,6 +254,33 @@ rm -rf %{buildroot}
 %doc /usr/share/man/man1/*
 %doc /usr/share/man/man5/*
 %doc /usr/share/man/man7/*
+
+%files extras
+%defattr(-,root,root,-)
+/usr/bin/weston-calibrator
+/usr/bin/weston-clickdot
+/usr/bin/weston-cliptest
+/usr/bin/weston-confine
+/usr/bin/weston-dnd
+/usr/bin/weston-editor
+/usr/bin/weston-eventdemo
+/usr/bin/weston-flower
+/usr/bin/weston-fullscreen
+/usr/bin/weston-image
+/usr/bin/weston-multi-resource
+/usr/bin/weston-presentation-shm
+/usr/bin/weston-resizor
+/usr/bin/weston-scaler
+/usr/bin/weston-simple-damage
+/usr/bin/weston-simple-dmabuf-drm
+/usr/bin/weston-simple-dmabuf-v4l
+/usr/bin/weston-simple-egl
+/usr/bin/weston-simple-shm
+/usr/bin/weston-simple-touch
+/usr/bin/weston-smoke
+/usr/bin/weston-stacking
+/usr/bin/weston-subsurfaces
+/usr/bin/weston-transformed
 
 %files lib
 %defattr(-,root,root,-)
