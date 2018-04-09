@@ -6,3 +6,4 @@ freerdp2
 cairo-egl
 lcms2
 libsystemd-login
+libdrm_freedreno
