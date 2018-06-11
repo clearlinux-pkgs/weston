@@ -1,0 +1,16 @@
+#
+# weston@.service
+#
+# enable weston to run as <user> by running
+# # systemctl enable weston@<user>.service
+#
+[Unit]
+Description=Start weston session on demand
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/weston-launch -t /dev/tty2 -u %I -- --idle-time=0
+WorkingDirectory=/home/%I/
+
+[Install]
+WantedBy=graphical.target
