@@ -6,14 +6,16 @@
 #
 Name     : weston
 Version  : 4.0.0
-Release  : 15
+Release  : 16
 URL      : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
+Source1  : weston@.service
 Source99 : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz.sig
 Summary  : Header files for Weston plugin development
 Group    : Development/Tools
 License  : MIT
 Requires: weston-bin
+Requires: weston-config
 Requires: weston-lib
 Requires: weston-doc
 Requires: weston-data
@@ -76,9 +78,18 @@ manager.
 Summary: bin components for the weston package.
 Group: Binaries
 Requires: weston-data
+Requires: weston-config
 
 %description bin
 bin components for the weston package.
+
+
+%package config
+Summary: config components for the weston package.
+Group: Default
+
+%description config
+config components for the weston package.
 
 
 %package data
@@ -134,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523305854
+export SOURCE_DATE_EPOCH=1528743234
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -152,9 +163,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1523305854
+export SOURCE_DATE_EPOCH=1528743234
 rm -rf %{buildroot}
 %make_install
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 
 %files
 %defattr(-,root,root,-)
@@ -195,6 +208,10 @@ rm -rf %{buildroot}
 /usr/libexec/weston-keyboard
 /usr/libexec/weston-screenshooter
 /usr/libexec/weston-simple-im
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/weston@.service
 
 %files data
 %defattr(-,root,root,-)
