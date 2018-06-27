@@ -6,7 +6,7 @@
 #
 Name     : weston
 Version  : 4.0.0
-Release  : 16
+Release  : 17
 URL      : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
 Source1  : weston@.service
