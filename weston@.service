@@ -4,6 +4,14 @@
 # enable weston to run as <user> by running
 # # systemctl enable weston@<user>.service
 #
+#
+# NOTE NOTE NOTE
+#
+# DO NOT USE THIS, THIS UNIT DOES NOT CREATE A PROPER
+# SESSION AND WILL NOT RESULT IN A SECURE SYSTEM
+#
+# NOTE NOTE NOTE
+#
 [Unit]
 Description=Start weston session on demand
 
