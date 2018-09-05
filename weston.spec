@@ -5,21 +5,23 @@
 # Source0 file verified with key 0x5E54498E697F11D7 (derekf@osg.samsung.com)
 #
 Name     : weston
-Version  : 4.0.0
-Release  : 17
-URL      : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
-Source0  : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz
+Version  : 5.0.0
+Release  : 18
+URL      : https://wayland.freedesktop.org/releases/weston-5.0.0.tar.xz
+Source0  : https://wayland.freedesktop.org/releases/weston-5.0.0.tar.xz
 Source1  : weston@.service
-Source99 : https://wayland.freedesktop.org/releases/weston-4.0.0.tar.xz.sig
+Source99 : https://wayland.freedesktop.org/releases/weston-5.0.0.tar.xz.sig
 Summary  : Header files for Weston plugin development
 Group    : Development/Tools
 License  : MIT
 Requires: weston-bin
 Requires: weston-config
 Requires: weston-lib
-Requires: weston-doc
+Requires: weston-license
+Requires: weston-man
 Requires: weston-data
 BuildRequires : Linux-PAM-dev
+BuildRequires : colord-dev
 BuildRequires : doxygen
 BuildRequires : lcms2-dev
 BuildRequires : libjpeg-turbo-dev
@@ -63,22 +65,15 @@ BuildRequires : sed
 %description
 Weston
 ======
-Weston is the reference implementation of a Wayland compositor, and a
-useful compositor in its own right.  Weston has various backends that
-lets it run on Linux kernel modesetting and evdev input as well as
-under X11.  Weston ships with a few example clients, from simple
-clients that demonstrate certain aspects of the protocol to more
-complete clients and a simplistic toolkit.  There is also a quite
-capable terminal emulator (weston-terminal) and an toy/example desktop
-shell.  Finally, weston also provides integration with the Xorg server
-and can pull X clients into the Wayland desktop and act as an X window
-manager.
+![screenshot of skeletal Weston desktop](doc/wayland-screenshot.jpg)
 
 %package bin
 Summary: bin components for the weston package.
 Group: Binaries
 Requires: weston-data
 Requires: weston-config
+Requires: weston-license
+Requires: weston-man
 
 %description bin
 bin components for the weston package.
@@ -112,14 +107,6 @@ Provides: weston-devel
 dev components for the weston package.
 
 
-%package doc
-Summary: doc components for the weston package.
-Group: Documentation
-
-%description doc
-doc components for the weston package.
-
-
 %package extras
 Summary: extras components for the weston package.
 Group: Default
@@ -132,20 +119,37 @@ extras components for the weston package.
 Summary: lib components for the weston package.
 Group: Libraries
 Requires: weston-data
+Requires: weston-license
 
 %description lib
 lib components for the weston package.
 
 
+%package license
+Summary: license components for the weston package.
+Group: Default
+
+%description license
+license components for the weston package.
+
+
+%package man
+Summary: man components for the weston package.
+Group: Default
+
+%description man
+man components for the weston package.
+
+
 %prep
-%setup -q -n weston-4.0.0
+%setup -q -n weston-5.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1528743234
+export SOURCE_DATE_EPOCH=1536126100
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -163,8 +167,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1528743234
+export SOURCE_DATE_EPOCH=1536126100
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/weston
+cp COPYING %{buildroot}/usr/share/doc/weston/COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
@@ -203,6 +209,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 /usr/bin/weston-info
 /usr/bin/weston-launch
 /usr/bin/weston-terminal
+/usr/bin/weston-touch-calibrator
 /usr/libexec/weston-desktop-shell
 /usr/libexec/weston-ivi-shell-user-interface
 /usr/libexec/weston-keyboard
@@ -243,35 +250,29 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/libweston-4/compositor-drm.h
-/usr/include/libweston-4/compositor-fbdev.h
-/usr/include/libweston-4/compositor-headless.h
-/usr/include/libweston-4/compositor-rdp.h
-/usr/include/libweston-4/compositor-wayland.h
-/usr/include/libweston-4/compositor-x11.h
-/usr/include/libweston-4/compositor.h
-/usr/include/libweston-4/config-parser.h
-/usr/include/libweston-4/libweston-desktop.h
-/usr/include/libweston-4/matrix.h
-/usr/include/libweston-4/plugin-registry.h
-/usr/include/libweston-4/timeline-object.h
-/usr/include/libweston-4/version.h
-/usr/include/libweston-4/windowed-output-api.h
-/usr/include/libweston-4/xwayland-api.h
-/usr/include/libweston-4/zalloc.h
+/usr/include/libweston-5/compositor-drm.h
+/usr/include/libweston-5/compositor-fbdev.h
+/usr/include/libweston-5/compositor-headless.h
+/usr/include/libweston-5/compositor-rdp.h
+/usr/include/libweston-5/compositor-wayland.h
+/usr/include/libweston-5/compositor-x11.h
+/usr/include/libweston-5/compositor.h
+/usr/include/libweston-5/config-parser.h
+/usr/include/libweston-5/libweston-desktop.h
+/usr/include/libweston-5/matrix.h
+/usr/include/libweston-5/plugin-registry.h
+/usr/include/libweston-5/timeline-object.h
+/usr/include/libweston-5/version.h
+/usr/include/libweston-5/windowed-output-api.h
+/usr/include/libweston-5/xwayland-api.h
+/usr/include/libweston-5/zalloc.h
 /usr/include/weston/ivi-layout-export.h
 /usr/include/weston/weston.h
-/usr/lib64/libweston-4.so
-/usr/lib64/libweston-desktop-4.so
-/usr/lib64/pkgconfig/libweston-4.pc
-/usr/lib64/pkgconfig/libweston-desktop-4.pc
+/usr/lib64/libweston-5.so
+/usr/lib64/libweston-desktop-5.so
+/usr/lib64/pkgconfig/libweston-5.pc
+/usr/lib64/pkgconfig/libweston-desktop-5.pc
 /usr/lib64/pkgconfig/weston.pc
-
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-%doc /usr/share/man/man5/*
-%doc /usr/share/man/man7/*
 
 %files extras
 %defattr(-,root,root,-)
@@ -302,19 +303,30 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libweston-4.so.0
-/usr/lib64/libweston-4.so.0.0.0
-/usr/lib64/libweston-4/drm-backend.so
-/usr/lib64/libweston-4/fbdev-backend.so
-/usr/lib64/libweston-4/gl-renderer.so
-/usr/lib64/libweston-4/headless-backend.so
-/usr/lib64/libweston-4/wayland-backend.so
-/usr/lib64/libweston-4/x11-backend.so
-/usr/lib64/libweston-4/xwayland.so
-/usr/lib64/libweston-desktop-4.so.0
-/usr/lib64/libweston-desktop-4.so.0.0.0
+/usr/lib64/libweston-5.so.0
+/usr/lib64/libweston-5.so.0.0.0
+/usr/lib64/libweston-5/drm-backend.so
+/usr/lib64/libweston-5/fbdev-backend.so
+/usr/lib64/libweston-5/gl-renderer.so
+/usr/lib64/libweston-5/headless-backend.so
+/usr/lib64/libweston-5/wayland-backend.so
+/usr/lib64/libweston-5/x11-backend.so
+/usr/lib64/libweston-5/xwayland.so
+/usr/lib64/libweston-desktop-5.so.0
+/usr/lib64/libweston-desktop-5.so.0.0.0
+/usr/lib64/weston/cms-colord.so
 /usr/lib64/weston/cms-static.so
 /usr/lib64/weston/desktop-shell.so
 /usr/lib64/weston/fullscreen-shell.so
 /usr/lib64/weston/hmi-controller.so
 /usr/lib64/weston/ivi-shell.so
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/weston/COPYING
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man1/weston.1
+/usr/share/man/man5/weston.ini.5
+/usr/share/man/man7/weston-drm.7
