@@ -6,7 +6,7 @@
 #
 Name     : weston
 Version  : 5.0.0
-Release  : 19
+Release  : 20
 URL      : https://wayland.freedesktop.org/releases/weston-5.0.0.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-5.0.0.tar.xz
 Source1  : weston@.service
@@ -149,14 +149,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536126100
+export SOURCE_DATE_EPOCH=1536800750
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static --disable-documentation \
 --disable-setuid-install \
---enable-demo-clients-install
+--enable-demo-clients-install \
+--enable-systemd-notify
 make  %{?_smp_mflags}
 
 %check
@@ -167,7 +168,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1536126100
+export SOURCE_DATE_EPOCH=1536800750
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/weston
 cp COPYING %{buildroot}/usr/share/doc/weston/COPYING
@@ -320,6 +321,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 /usr/lib64/weston/fullscreen-shell.so
 /usr/lib64/weston/hmi-controller.so
 /usr/lib64/weston/ivi-shell.so
+/usr/lib64/weston/systemd-notify.so
 
 %files license
 %defattr(-,root,root,-)
