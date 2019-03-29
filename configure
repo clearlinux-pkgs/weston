@@ -3,3 +3,4 @@
 --enable-demo-clients-install
 --enable-systemd-notify
 
+--enable-autotools
