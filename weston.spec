@@ -6,12 +6,12 @@
 #
 Name     : weston
 Version  : 6.0.1
-Release  : 24
+Release  : 25
 URL      : https://wayland.freedesktop.org/releases/weston-6.0.1.tar.xz
 Source0  : https://wayland.freedesktop.org/releases/weston-6.0.1.tar.xz
 Source1  : weston@.service
 Source2 : https://wayland.freedesktop.org/releases/weston-6.0.1.tar.xz.sig
-Summary  : Reference implementation of a Wayland compositor
+Summary  : Header files for libweston compositors development
 Group    : Development/Tools
 License  : MIT
 Requires: weston-bin = %{version}-%{release}
@@ -73,8 +73,7 @@ BuildRequires : sed
 %description
 Weston
 ======
-Weston is the reference implementation of a Wayland compositor, as well as a
-useful environment in and of itself.
+![screenshot of skeletal Weston desktop](doc/wayland-screenshot.jpg)
 
 %package bin
 Summary: bin components for the weston package.
@@ -103,7 +102,6 @@ Requires: weston-lib = %{version}-%{release}
 Requires: weston-bin = %{version}-%{release}
 Requires: weston-data = %{version}-%{release}
 Provides: weston-devel = %{version}-%{release}
-Requires: weston = %{version}-%{release}
 Requires: weston = %{version}-%{release}
 
 %description dev
@@ -170,8 +168,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565276295
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1566942286
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -195,13 +192,15 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1565276295
+export SOURCE_DATE_EPOCH=1566942286
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/weston
 cp COPYING %{buildroot}/usr/share/package-licenses/weston/COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
+## Remove excluded files
+rm -f %{buildroot}/usr/bin/weston-screenshooter
 
 %files
 %defattr(-,root,root,-)
@@ -213,7 +212,6 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/weston@.service
 /usr/bin/weston-debug
 /usr/bin/weston-info
 /usr/bin/weston-launch
-/usr/bin/weston-screenshooter
 /usr/bin/weston-simple-dmabuf-egl
 /usr/bin/weston-terminal
 /usr/bin/weston-touch-calibrator
