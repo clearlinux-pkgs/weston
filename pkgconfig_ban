@@ -6,3 +6,4 @@ cairo-egl
 libsystemd-login
 libdrm_freedreno
 libdrm_etnaviv
+neatvnc
