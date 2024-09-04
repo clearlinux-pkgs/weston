@@ -1,6 +1,5 @@
-13.0.3
+14.0.0
 cairo-dev
-freerdp-dev
 gstreamer-dev
 libva-dev
 libwebp-dev
@@ -21,7 +20,6 @@ pkgconfig(pango)
 pkgconfig(pangocairo)
 pkgconfig(pixman-1)
 pkgconfig(wayland-protocols)
-pkgconfig(wayland-server)
 pkgconfig(xcb-cursor)
 pkgconfig(xcursor)
 pkgconfig(xwayland)
